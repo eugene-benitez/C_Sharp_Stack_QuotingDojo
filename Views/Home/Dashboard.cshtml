@@ -1,0 +1,39 @@
+@using C_Sharp.Models
+@model Quote
+
+<style>
+    h1 {
+        border-bottom: 2px solid black;
+    }
+
+    h2 {
+        font-size: 2.0em;
+    }
+</style>
+<h1>C Sharp</h1>
+<a href="/"><h2>Log Out</h2></a>
+<br>
+<br>
+<center>
+<form asp-action="Create" asp-controller="Home" method="post">
+    <span asp-validation-for="Author"></span>
+    <label asp-for="Author"></label>
+    <br>
+    <input asp-for="Author">
+    <br>
+    <br>
+    <span asp-validation-for="Text"></span>
+    <label asp-for="Text"></label>
+    <br>
+    <textarea asp-for="Text"> </textarea>
+    <br>
+    <br>
+    <input type="submit" value="Create">
+</form>
+</center>
+
+
+<partial name="LikePartial"/>
+
+<br>
+

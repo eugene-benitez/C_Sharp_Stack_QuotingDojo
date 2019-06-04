@@ -1,0 +1,50 @@
+@using C_Sharp.Models
+@model Likes
+@for (int i = 0; i < @ViewBag.AllQuotes.Count; i++)
+{
+    int liked = 0;
+    <table class="table table-striped table-inverse table-responsive">
+        <thead class="thead-inverse">
+            <tbody>
+                <tr>
+                    <td scope="row">@ViewBag.AllQuotes[i].Author:</td>
+                    <td>@ViewBag.AllQuotes[i].Text</td>
+                    <td>Posted By: @ViewBag.AllQuotes[i].Creator.FirstName @ViewBag.AllQuotes[i].Creator.LastName</td>
+                    <td>
+
+                    @if (@ViewBag.UserId == @ViewBag.AllQuotes[i].CreatorID)
+
+                    {
+                        <a class="btn btn-primary" href="delete/@ViewBag.AllQuotes[i].QuoteID" role="button">Delete</a>
+                    }
+
+                    @foreach (var user in @ViewBag.LikedQuotes[i].Likers)
+                    {
+                        @if(user.User.UserID == @ViewBag.UserId) {
+                            liked = 1;
+                        }
+                    }
+                    <br>
+                    <br>
+                    @if (liked == 1)
+                    {
+                    <a class="btn btn-primary" href="unlike/@ViewBag.AllQuotes[i].QuoteID" role="button">Unlike</a>
+
+                    <br>
+                    <button class="btn btn-primary">@ViewBag.LikedQuotes[i].Likers.Count</button>
+
+                    }
+
+                    else {
+                    <form asp-action="Like" asp-controller="Home" method="post">
+                    <input type="hidden" asp-for="QuoteID" value="@ViewBag.AllQuotes[i].QuoteID">
+                    <button class="btn btn-primary" type="submit">Like</button>
+                    </form>
+                    <button class="btn btn-primary">@ViewBag.LikedQuotes[i].Likers.Count</button>
+                    }
+                    </td>
+                </tr>
+            </tbody>
+    </table>
+
+}
